@@ -2,21 +2,20 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const mongoose = require('mongoose');
 
 //Connect mongodb
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/myproject');
+mongoose.connect('mongodb://localhost/myproject')
+    .then(console.log('connected'));
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Connection error:'));
 db.once('open', () => {
-    console.log('Mongodb connected');
+    console.log('Connection open to database');
 });
 
 const app = express();
 
+//Middleware
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -25,7 +24,8 @@ if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
-app.use('/', indexRouter);
+//Routing
+const usersRouter = require('./routes/userRoute');
 app.use('/users', usersRouter);
 
 module.exports = app;

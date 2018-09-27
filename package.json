@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "cd client && react-scritps build && cd ..",
-    "front": "cd client && npm run start && cd..",
-    "start-dev": "npm run front && npm run start",
-    "start": "node ./bin/www"
+    "build:front": "cd client && npm run build && cd ..",
+    "start:front": "cd client && npm run start && cd..",
+    "start:back": "nodemon ./bin/www",
+    "start:dev": "concurrently --kill-others \"npm run dev\" \"npm run front\"",
+    "start": "npm run build:front && node ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
@@ -14,9 +15,11 @@
     "express": "~4.16.0",
     "mongoose": "^5.2.17",
     "morgan": "~1.9.0",
+    "nodemon": "^1.18.4",
     "npm": "^6.4.1"
   },
   "devDependencies": {
+    "concurrently": "^4.0.1",
     "eslint": "^5.3.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
