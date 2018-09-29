@@ -10,7 +10,8 @@
     "start:front": "cd client && npm run start && cd..",
     "start:back": "nodemon ./bin/www",
     "start:dev": "concurrently --kill-others \"npm run start:back\" \"npm run start:front\"",
-    "start": "npm run build:front && node ./bin/www"
+    "start": "npm run build:front && node ./bin/www",
+    "heroku-postbuild": "cd client && npm i --only=prod && cd .."
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
