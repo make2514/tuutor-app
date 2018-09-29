@@ -10,8 +10,7 @@
     "start:front": "cd client && npm run start && cd..",
     "start:back": "nodemon ./bin/www",
     "start:dev": "concurrently --kill-others \"npm run start:back\" \"npm run start:front\"",
-    "start": "npm run build:front && node ./bin/www",
-    "heroku-postbuild": "cd client && npm i --only=prod && cd .."
+    "start": "npm run build:front && node ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
@@ -20,7 +19,7 @@
     "mongoose": "^5.2.17",
     "morgan": "~1.9.0",
     "nodemon": "^1.18.4",
-    "npm": "^6.4.1"
+    "react-scripts": "1.1.5"
   },
   "devDependencies": {
     "concurrently": "^4.0.1",
