@@ -9,7 +9,7 @@
     "build:front": "cd client && npm run build && cd ..",
     "start:front": "cd client && npm run start && cd..",
     "start:back": "nodemon ./bin/www",
-    "start:dev": "concurrently --kill-others \"npm run dev\" \"npm run front\"",
+    "start:dev": "concurrently --kill-others \"npm run start:back\" \"npm run start:front\"",
     "start": "npm run build:front && node ./bin/www"
   },
   "dependencies": {

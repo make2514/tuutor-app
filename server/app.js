@@ -3,8 +3,15 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+
 // Connect mongodb
-mongoose.connect('mongodb://localhost/myproject')
+let dbUri;
+if (process.env.NODE_ENV === 'production') {
+  dbUri = process.env.MONGODB_URI;
+} else {
+  dbUri = 'mongodb://localhost/tuutor';
+}
+mongoose.connect(dbUri)
   .then(() => console.log('connected'));
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Connection error:'));
