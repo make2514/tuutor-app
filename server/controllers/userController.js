@@ -1,5 +1,5 @@
-const User = require('../models/userModel');
 const mongoose = require('mongoose');
+const User = require('../models/userModel');
 
 /* This is an example and incomplete */
 module.exports = {
