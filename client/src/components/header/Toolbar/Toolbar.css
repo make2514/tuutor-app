@@ -49,3 +49,18 @@
   color: #fa923f;
 }
 
+@media (max-width: 768px) {
+  .toolbar_navigation-items {
+    display: hide;
+  }
+}
+
+@media (min-width: 769px) {
+  .toolbar__toggle-button {
+    display: show;
+  }
+
+  .toolbar__logo {
+    margin-left: 10px;
+  }
+}
