@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import Button from '@material-ui/core/Button';
 import logo from './logo.svg';
-import './App.css';
+// import './App.css';
 import UsersList from "./components/usersList";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import LoginPage from "./components/loginPage";
+import SignIn from "./components/signIn";
 
 class App extends Component {
     render() {
@@ -12,6 +13,7 @@ class App extends Component {
             <BrowserRouter>
                 <Switch>
                     <Route path="/login" exact component={LoginPage}/>
+                    <Route path="/signin" exact component={SignIn}/>
                     <Route path="/" exact component={UsersList}/>
                 </Switch>
             </BrowserRouter>
