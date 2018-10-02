@@ -18,7 +18,6 @@ if (process.env.NODE_ENV === 'production') {
 
 // Routing
 const usersRouter = require('./routes/userRoute');
-
 app.use('/users', usersRouter);
 
 module.exports = app;

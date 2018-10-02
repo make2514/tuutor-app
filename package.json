@@ -6,6 +6,7 @@
     "node": ">=6.0.0"
   },
   "scripts": {
+    "install:all": "npm i && cd client && npm i && cd ..",
     "build:front": "cd client && npm run build && cd ..",
     "start:front": "cd client && npm run start && cd..",
     "start:back": "nodemon ./bin/www",
@@ -14,6 +15,7 @@
     "heroku-postbuild": "cd client && npm i --only=prod && cd .."
   },
   "dependencies": {
+    "bcrypt": "^3.0.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
