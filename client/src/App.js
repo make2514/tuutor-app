@@ -3,7 +3,7 @@ import UsersList from "./components/usersList";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import LoginPage from "./components/loginPage";
 import SignIn from "./components/signIn";
-import Header from "./components/header/header";
+import Register from "./components/registerPage";
 
 class App extends Component {
     render() {
@@ -13,7 +13,7 @@ class App extends Component {
                     <Route path="/login" exact component={LoginPage}/>
                     <Route path="/signin" exact component={SignIn}/>
                     <Route path="/" exact component={UsersList}/>
-                    <Route path="/header" exact component={Header}/>
+                    <Route path="/register" exact component={Register}/>
                 </Switch>
             </BrowserRouter>
         );
