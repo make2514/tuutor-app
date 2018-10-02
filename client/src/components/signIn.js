@@ -10,7 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import logo from '../logo.svg';
+// import logo from '../logo.svg';
 
 const styles = theme => ({
   layout: {
@@ -52,7 +52,7 @@ function SignIn(props) {
       <CssBaseline />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
-          <img src={logo}/>
+          <img src="logo.svg" width="300" height="50"/>
           <Typography variant="headline">Login</Typography>
           <form className={classes.form}>
             <FormControl margin="normal" required fullWidth>
@@ -68,10 +68,6 @@ function SignIn(props) {
                 autoComplete="current-password"
               />
             </FormControl>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
             <Button
               type="submit"
               fullWidth
@@ -81,6 +77,9 @@ function SignIn(props) {
             >
               Login
             </Button>
+            <a href="">
+            or register
+            </a>
           </form>
         </Paper>
       </main>
