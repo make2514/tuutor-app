@@ -5,7 +5,8 @@ const notificationSchema = new mongoose.Schema({
     subject: { type: String, required: true },
     info: { type: String, required: true },
     payment: String,
-    location: String
+    location: String,
+    tutor: Boolean
 });
 
 module.exports = mongoose.model('Notification', notificationSchema);

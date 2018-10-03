@@ -9,7 +9,6 @@ const notificationRouter = require('./notificationRoute');
 router.use('/notification', checkAuth, notificationRouter);
 //partly secure routes
 router.use('/users', usersRouter);
-
 //open routes
 
 module.exports = router;
