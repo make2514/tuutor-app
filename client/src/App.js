@@ -5,6 +5,10 @@ import LoginPage from "./components/loginPage";
 import SignIn from "./components/signIn";
 import TicketFeed from './components/ticketFeed/ticketFeed';
 import Register from "./components/registerPage";
+import Header from "./components/header/header";
+import Profile from "./components/profile/profilePage";
+import Avatar from "./components/profile/avatar";
+import CreateProfile from "./components/profile/createProfile";
 
 class App extends Component {
     render() {
@@ -16,6 +20,10 @@ class App extends Component {
                     <Route path="/ticketfeed" exact component={TicketFeed}/>
                     <Route path="/" exact component={UsersList}/>
                     <Route path="/register" exact component={Register}/>
+                    <Route path="/header" exact component={Header}/>
+                    <Route path ="/profile" exact component={Profile}/>
+                    <Route path ="/createProfile" exact component={CreateProfile}/>
+                    <Route path ="/avatar" exact component={Avatar}/>
                 </Switch>
             </BrowserRouter>
         );
