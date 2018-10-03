@@ -9,6 +9,8 @@ import Header from "./components/header/header";
 import Profile from "./components/profile/profilePage";
 import Avatar from "./components/profile/avatar";
 import CreateProfile from "./components/profile/createProfile";
+import CreateTicket from "./components/createTicket";
+import ViewTicket from "./components/viewTicket";
 
 class App extends Component {
     render() {
@@ -24,6 +26,8 @@ class App extends Component {
                     <Route path ="/profile" exact component={Profile}/>
                     <Route path ="/createProfile" exact component={CreateProfile}/>
                     <Route path ="/avatar" exact component={Avatar}/>
+                    <Route path ="/createticket" exact component={CreateTicket}/>
+                    <Route path ="/viewticket" exact component={ViewTicket}/>
                 </Switch>
             </BrowserRouter>
         );
