@@ -16,19 +16,19 @@ const sideDrawer = props => {
     <nav className={drawerClasses}>
       <ul>
         <li>
-          <a href="/">Create Ticket</a>
+        <a onClick={(event) => goToPage(event, '/createticket')} href="/">Create Ticket</a>
         </li>
         <li>
-          <a onClick={(event) => goToPage(event, '/profile')} href="/">Edit Profile</a>
+          <a onClick={(event) => goToPage(event, '/createProfile')} href="/">Edit Profile</a>
         </li>
         <li>
-          <a href="/">Settings</a>
+        <a onClick={(event) => goToPage(event, '/settings')} href="/">Settings</a>
         </li>
         <li>
-          <a href="/">Support</a>
+        <a onClick={(event) => goToPage(event, '/support')} href="/">Support</a>
         </li>
         <li>
-          <a href="/signin">Log Out</a>
+        <a onClick={(event) => goToPage(event, '/')} href="/">Log Out</a>
         </li>
       </ul>
     </nav>

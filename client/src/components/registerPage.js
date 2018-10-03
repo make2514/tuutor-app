@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Header from './header/header';
 import Button from '@material-ui/core/Button';
+import { withRouter } from 'react-router-dom';
 
 const styles = theme => ({
     container: {
@@ -36,7 +37,8 @@ const styles = theme => ({
     },
 });
 
-class OutlinedTextFields extends React.Component {
+
+class Register extends React.Component {
     state = {
         name: '',
         lastName: '',
@@ -45,7 +47,7 @@ class OutlinedTextFields extends React.Component {
         age: '',
         multiline: '-',
     };
-
+    
     handleChange = name => event => {
         this.setState({
             [name]: event.target.value,
@@ -53,7 +55,7 @@ class OutlinedTextFields extends React.Component {
     };
     render() {
         const { classes } = this.props;
-
+        
         return (
             <div>
                 <Header />
@@ -122,8 +124,8 @@ class OutlinedTextFields extends React.Component {
     }
 }
 
-OutlinedTextFields.propTypes = {
+Register.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(OutlinedTextFields);
+export default withStyles(styles)(Register);

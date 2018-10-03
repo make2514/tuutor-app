@@ -38,7 +38,12 @@ class ViewTicketMaster extends Component {
         return (
             <div>
                 <Header />
+
                 <form className={classes.container} noValidate autoComplete="off">
+                    <div className={classes.createdBy} component="p">
+                        Created By: Rick Harrison
+                    </div>
+                    
                     <TextField
                         disabled
                         required

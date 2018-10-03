@@ -53,6 +53,7 @@ class TicketFeed extends Component {
     };
 
     renderTutorClasses() {
+        
         return (
             <TabContainer>
                 <List>
