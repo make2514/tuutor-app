@@ -38,9 +38,12 @@ const styles = theme => ({
         color: 'green',
         background: 'red',
     },
+    tabHeader:{
+        backgroundColor:"#5569D7",
+    }
 });
 
-class TicketFeed extends Component {
+class MyTickets extends Component {
     constructor(props) {
         super(props);
     }
@@ -63,62 +66,37 @@ class TicketFeed extends Component {
                             <ImageIcon />
                         </Avatar>
                         
-                        <ListItemText style={{ zIndex: '1' }} primary={<MyTicketItem/>} secondary="Class description" />
+                        <ListItemText style={{ zIndex: '10' }} primary={<MyTicketItem name={"Ticket Name 1"}/>} secondary="get this from db" />
                     </ListItem>
                     <ListItem>
                         <Avatar>
                             <ImageIcon />
                         </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
+                        <ListItemText style={{ zIndex: '8' }} primary={<MyTicketItem name={"Ticket Name 5"}/>} secondary="get this from db" />
+
                     </ListItem>
                     <ListItem>
                         <Avatar>
                             <ImageIcon />
                         </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
+                        <ListItemText style={{ zIndex: '7' }} primary={<MyTicketItem name={"Ticket Name 666"}/>} secondary="get this from db" />
+
                     </ListItem>
                     <ListItem>
                         <Avatar>
                             <ImageIcon />
                         </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
+                        <ListItemText style={{ zIndex: '5' }} primary={<MyTicketItem name={"Ticket Name 2"}/>} secondary="get this from db" />
+
                     </ListItem>
                     <ListItem>
                         <Avatar>
                             <ImageIcon />
                         </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
+                        <ListItemText style={{ zIndex: '4' }} primary={<MyTicketItem name={"Ticket Name 3"}/>} secondary="get this from db" />
+
                     </ListItem>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
+                    
                 </List>
             </TabContainer>
         );
@@ -132,19 +110,22 @@ class TicketFeed extends Component {
                         <Avatar>
                             <ImageIcon />
                         </Avatar>
-                        <ListItemText primary="Name" secondary="Request description" />
+                        <ListItemText style={{ zIndex: '5' }} primary={<MyTicketItem name={"Ticket Name 2"}/>} secondary="get this from db" />
+
                     </ListItem>
                     <ListItem>
                         <Avatar>
                             <ImageIcon />
                         </Avatar>
-                        <ListItemText primary="Name" secondary="Request description" />
+                        <ListItemText style={{ zIndex: '4' }} primary={<MyTicketItem name={"Ticket Name 3"}/>} secondary="get this from db" />
+
                     </ListItem>
                     <ListItem>
                         <Avatar>
                             <ImageIcon />
                         </Avatar>
-                        <ListItemText primary="Name" secondary="Request description" />
+                        <ListItemText style={{ zIndex: '3' }} primary={<MyTicketItem name={"Ticket Name 9"}/>} secondary="get this from db" />
+
                     </ListItem>
                 </List>
             </TabContainer>
@@ -158,7 +139,7 @@ class TicketFeed extends Component {
             <div>
                 <Header />
                 <div className={classes.root}>
-                    <AppBar position="static">
+                    <AppBar position="static" className={classes.tabHeader}>
                     <Tabs centered value={value} onChange={this.handleChange}>
                     <Tab label="Tutor classes" />
                     <Tab label="Student requests" />
@@ -174,8 +155,8 @@ class TicketFeed extends Component {
     }
 }
 
-TicketFeed.propTypes = {
+MyTickets.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(TicketFeed);
+export default withStyles(styles)(MyTickets);

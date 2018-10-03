@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withRouter } from 'react-router-dom';
-// import logo from '../logo.svg';
+import { goToPage } from '../utils';
 
 const styles = theme => ({
   layout: {
@@ -74,6 +74,7 @@ function SignIn(props) {
               />
             </FormControl>
             <Button
+              onClick={() => goToPage(props, '/ticketfeed')}
               type="submit"
               fullWidth
               variant="raised"

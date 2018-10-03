@@ -54,7 +54,7 @@ class CreateProfile extends Component {
     };
     render() {
         const { classes } = this.props;
-
+        console.log(this.props.history);
         return (
             <div>
                 <Header />

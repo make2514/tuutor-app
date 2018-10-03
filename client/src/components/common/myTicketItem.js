@@ -8,6 +8,8 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { withStyles } from '@material-ui/core/styles';
+import { goToPage } from '../../utils';
+import { withRouter } from 'react-router-dom';
 
 const styles = theme => ({
   root: {
@@ -38,7 +40,7 @@ class MenuListComposition extends React.Component {
   render() {
     const { classes } = this.props;
     const { open } = this.state;
-
+    console.log('...',this.props.history);
     return (
       <div className={classes.root}>
         <div>
@@ -50,7 +52,7 @@ class MenuListComposition extends React.Component {
             aria-haspopup="true"
             onClick={this.handleToggle}
           >
-            Toggle Menu Grow
+            {this.props.name}
           </Button>
           <Popper open={open} anchorEl={this.anchorEl} transition disablePortal>
             {({ TransitionProps, placement }) => (
@@ -62,9 +64,9 @@ class MenuListComposition extends React.Component {
                 <Paper>
                   <ClickAwayListener onClickAway={this.handleClose}>
                     <MenuList>
-                      <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                      <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                      <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+                      <MenuItem onClick={() => goToPage(this.props, '/profile')}>User 1</MenuItem>
+                      <MenuItem onClick={() => goToPage(this.props, '/profile')}>User 2</MenuItem>
+                      <MenuItem onClick={() => goToPage(this.props, '/profile')}>User 3</MenuItem>
                     </MenuList>
                   </ClickAwayListener>
                 </Paper>
@@ -81,4 +83,4 @@ MenuListComposition.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(MenuListComposition);
+export default withStyles(styles)(withRouter(MenuListComposition));

@@ -14,6 +14,7 @@ import WorkIcon from '@material-ui/icons/Work';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import Header from '../header/header';
 
+
 function TabContainer(props) {
     return (
       <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -36,6 +37,9 @@ const styles = theme => ({
     selected: {
         color: 'green',
         background: 'red',
+    },
+    tabHeader:{
+        backgroundColor:"#5569D7",
     },
 });
 
@@ -150,7 +154,7 @@ class TicketFeed extends Component {
             <div>
                 <Header />
                 <div className={classes.root}>
-                    <AppBar position="static">
+                    <AppBar position="static" className={classes.tabHeader}>
                     <Tabs centered value={value} onChange={this.handleChange}>
                     <Tab label="Tutor classes" />
                     <Tab label="Student requests" />
