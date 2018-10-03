@@ -4,22 +4,34 @@ const checkAuth = require('../middleware/checkAuth');
 
 const router = express.Router();
 
-/* This is an example and incomplete */
 router.get('/', checkAuth, (req, res, next) => {
-  userController.findAll()
-      .then(obj => res.send(obj))
-      //this error handling is not complete yet
-      .catch(err => next(err) );
+    userController.findAll()
+        .then(obj => res.send(obj))
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({ error: err });
+        });
 });
-router.post('/', (req, res, next) => {
-  userController.create({
-      username: req.body.username,
-      password: req.body.password
-  })
-      .then(obj => res.send(obj))
-      //this error handling is not complete yet
-      .catch(err => next(err) );
+
+router.get('/:id', checkAuth, (req, res, next) => {
+    userController.findById(req.params.id)
+        .then(doc => res.send(doc))
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({ error: err });
+        });
 });
+
+router.put('/', (req, res, next) => {
+    userController.edit(req.body)
+        .then(result => res.send(result))
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({ error: err });
+        });
+});
+
+//open routes
 
 router.post('/signup', (req, res, next) => {
     userController.signUp(req.body)

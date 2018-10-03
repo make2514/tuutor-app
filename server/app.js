@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const routes = require('./routes');
 
 //Connection to mongodb
 require('./mongoose');
@@ -18,7 +19,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Routing
-const usersRouter = require('./routes/userRoute');
-app.use('/users', usersRouter);
+app.use(routes);
 
 module.exports = app;
