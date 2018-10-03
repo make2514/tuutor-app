@@ -3,7 +3,6 @@ const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-/* This is an example and incomplete */
 module.exports = {
     findAll() {
         return User.find()
@@ -11,13 +10,28 @@ module.exports = {
             .exec()
             .then(obj => { return obj });
     },
+
+    findById(id) {
+        return User.findById(id)
+            .select('-password')
+            .populate('notifications')
+            .exec()
+            .then(user => {return user})
+    },
+
     create(user) {
         return User.create({
             _id: mongoose.Types.ObjectId(),
             ...user
         })
-            .then(createdUser => { return createdUser });
+            .then(createdUser => { return createdUser })
     },
+
+    edit(user) {
+        return User.findByIdAndUpdate(user._id, user, {new: true})
+            .then(doc => { return doc })
+    },
+
     signUp({email, password}) {
         if (!email) throw "Email not given";
 
@@ -37,6 +51,7 @@ module.exports = {
             })
             .then(user => { return user });
     },
+
     login({ email, password }) {
         let userInfo;
         return User.findOne({ email: email })

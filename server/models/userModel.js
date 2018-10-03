@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-/* This is an example and incomplete */
 const userSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     email: { type: String, required: true },
@@ -10,6 +9,11 @@ const userSchema = new mongoose.Schema({
     phone: String,
     age: Number,
     bio: String,
+    reputation: Number,
+    notifications: [{
+        type: mongoose.Schema.ObjectId,
+        ref: 'Notification'
+    }]
 });
 
 module.exports = mongoose.model('User', userSchema);
