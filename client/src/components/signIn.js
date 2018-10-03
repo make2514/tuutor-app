@@ -10,6 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { withRouter } from 'react-router-dom';
 // import logo from '../logo.svg';
 
 const styles = theme => ({
@@ -47,6 +48,10 @@ const styles = theme => ({
 function SignIn(props) {
   const { classes } = props;
 
+  function goToRegister() {
+    props.history.push('/register');
+  }
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -77,9 +82,9 @@ function SignIn(props) {
             >
               Login
             </Button>
-            <a href="">
+            <Button onClick={goToRegister}>
             or register
-            </a>
+            </Button>
           </form>
         </Paper>
       </main>
@@ -91,4 +96,4 @@ SignIn.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SignIn);
+export default withRouter(withStyles(styles)(SignIn));

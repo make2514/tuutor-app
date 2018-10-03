@@ -1,8 +1,13 @@
 import React from 'react';
-
+import { withRouter } from 'react-router-dom';
 import './SideDrawer.css';
 
 const sideDrawer = props => {
+  function goToPage(event, path) {
+    event.preventDefault();
+    props.history.push(path);
+  }
+
   let drawerClasses = 'side-drawer';
   if (props.show) {
     drawerClasses = 'side-drawer open';
@@ -14,7 +19,7 @@ const sideDrawer = props => {
           <a href="/">Create Ticket</a>
         </li>
         <li>
-          <a href="/">Edit Profile</a>
+          <a onClick={(event) => goToPage(event, '/profile')} href="/">Edit Profile</a>
         </li>
         <li>
           <a href="/">Settings</a>
@@ -30,4 +35,4 @@ const sideDrawer = props => {
   );
 };
 
-export default sideDrawer;
+export default withRouter(sideDrawer);
