@@ -28,7 +28,7 @@ const sideDrawer = props => {
         <a onClick={(event) => goToPage(event, '/support')} href="/">Support</a>
         </li>
         <li>
-        <a onClick={(event) => goToPage(event, '/')} href="/">Log Out</a>
+        <a onClick={(event) => goToPage(event, '/signin')} href="/">Log Out</a>
         </li>
       </ul>
     </nav>

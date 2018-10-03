@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Header from './header/header';
 import Button from '@material-ui/core/Button';
+import { goToPage } from '../utils';
 
 const styles = theme => ({
     container: {
@@ -76,7 +77,7 @@ class ViewTicketMaster extends Component {
                         margin="normal"
                         variant="outlined"
                     />
-                    <Button variant="contained" color="primary" className={classes.button}>
+                    <Button onClick={() => goToPage(this.props, '/chat')} variant="contained" color="primary" className={classes.button}>
                         Apply
                 </Button>
                 </form>

@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Header from './header/header';
 import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router-dom';
+import { goToPage } from '../utils';
 
 const styles = theme => ({
     container: {
@@ -53,6 +54,9 @@ class Register extends React.Component {
             [name]: event.target.value,
         });
     };
+
+
+
     render() {
         const { classes } = this.props;
         
@@ -115,8 +119,8 @@ class Register extends React.Component {
                         margin="none"
                         variant="outlined"
                     />
-                     <Button variant="contained" color="primary"className={classes.button}>
-                     Register
+                     <Button onClick={() => goToPage(this.props, '/createprofile')} variant="contained" color="primary"className={classes.button}>
+                        Register
                      </Button>
                 </form>
             </div>
