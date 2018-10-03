@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import UsersList from "./components/usersList";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import ProtectedRoute from "./components/common/protectedRoute";
 import SignIn from "./components/signIn";
 import TicketFeed from './components/ticketFeed/ticketFeed';
 import MyTickets from './components/ticketFeed/myTickets';
