@@ -120,6 +120,7 @@ class Register extends React.Component {
                         className={classes.textField}
                         margin="none"
                         variant="outlined"
+                        type="password"
                     />
                     <TextField
                         required
@@ -130,6 +131,7 @@ class Register extends React.Component {
                         className={classes.textField}
                         margin="none"
                         variant="outlined"
+                        type="password"
                     />
                     {/* <TextField
                         id="outlined-phone"
