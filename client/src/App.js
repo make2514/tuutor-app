@@ -18,6 +18,7 @@ class App extends Component {
             <BrowserRouter>
                 <Switch>
                     <Route path="/" exact component={SignIn}/>
+                    <Route path="/signin" exact component={SignIn}/>
                     <Route path="/ticketfeed" exact component={TicketFeed}/>
                     <Route path="/mytickets" exact component={MyTickets}/>
                     <Route path="/register" exact component={Register}/>
