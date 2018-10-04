@@ -41,12 +41,9 @@ const styles = theme => ({
 
 class Register extends React.Component {
     state = {
-        name: '',
-        lastName: '',
         email: '',
-        phone:'',
-        age: '',
-        multiline: '-',
+        password: '',
+        passwordRepetition: ''
     };
     
     handleChange = name => event => {
@@ -55,7 +52,29 @@ class Register extends React.Component {
         });
     };
 
+    register(context) {
+        const { email, password, passwordRepetition } = context.state;
 
+        if (password !== passwordRepetition) {
+            console.log('check your password');
+            return;
+        }
+        return fetch('http://localhost:8000/users/signup', { 
+          method: 'post',
+          headers: new Headers({
+           'Content-Type': 'application/json'
+          }),
+          body: JSON.stringify( {
+                  email,
+                  password
+              })
+         })
+         .then(function(res) {
+            if (res.ok) {
+                goToPage(context.props, '/createprofile')
+            }
+         });
+      }
 
     render() {
         const { classes } = this.props;
@@ -64,7 +83,7 @@ class Register extends React.Component {
             <div>
                 <Header />
                 <form className={classes.container} noValidate autoComplete="off">
-                    <TextField
+                    {/* <TextField
                         id="outlined-name"
                         label="First Name"
                         className={classes.textField}
@@ -81,12 +100,23 @@ class Register extends React.Component {
                         onChange={this.handleChange('lastName')}
                         margin="none"
                         variant="outlined"
+                    /> */}
+                    <TextField
+                        required
+                        id="outlined-name"
+                        label="Email"
+                        className={classes.textField}
+                        value={this.state.email}
+                        onChange={this.handleChange('email')}
+                        margin="none"
+                        variant="outlined"
                     />
                     <TextField
                         required
                         id="outlined-required"
                         label="Password"
-                        defaultValue=""
+                        value={this.state.password}
+                        onChange={this.handleChange('password')}
                         className={classes.textField}
                         margin="none"
                         variant="outlined"
@@ -95,22 +125,13 @@ class Register extends React.Component {
                         required
                         id="outlined-required"
                         label="Confirm Password"
-                        defaultValue=""
+                        value={this.state.passwordRepetition}
+                        onChange={this.handleChange('passwordRepetition')}
                         className={classes.textField}
                         margin="none"
                         variant="outlined"
                     />
-                    <TextField
-                        required
-                        id="outlined-name"
-                        label="email"
-                        className={classes.textField}
-                        value={this.state.email}
-                        onChange={this.handleChange('email')}
-                        margin="none"
-                        variant="outlined"
-                    />
-                    <TextField
+                    {/* <TextField
                         id="outlined-phone"
                         label="phone"
                         className={classes.textField}
@@ -118,8 +139,8 @@ class Register extends React.Component {
                         onChange={this.handleChange('phone')}
                         margin="none"
                         variant="outlined"
-                    />
-                     <Button onClick={() => goToPage(this.props, '/createprofile')} variant="contained" color="primary"className={classes.button}>
+                    /> */}
+                     <Button onClick={() => this.register(this)} variant="contained" color="primary"className={classes.button}>
                         Register
                      </Button>
                 </form>
