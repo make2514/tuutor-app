@@ -13,7 +13,7 @@ import ImageIcon from '@material-ui/icons/Image';
 import WorkIcon from '@material-ui/icons/Work';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import Header from '../header/header';
-
+import { goToPage } from '../../utils';
 
 function TabContainer(props) {
     return (
@@ -56,65 +56,20 @@ class TicketFeed extends Component {
         this.setState({ value });
     };
 
-    renderTutorClasses() {
-        
+    renderTutorClasses(props) {
+        const tutorClassesDummyData = [1,1,1,1,1,1,1,1,1];
+        const tutorClasses = tutorClassesDummyData.map((value, index) => (
+                <ListItem onClick={() => goToPage(props, '/viewticket')} key={index}>
+                    <Avatar>
+                        <ImageIcon />
+                    </Avatar>
+                    <ListItemText primary="Name" secondary="Class description" />
+                </ListItem>
+            ));
         return (
             <TabContainer>
                 <List>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
+                    {tutorClasses}
                 </List>
             </TabContainer>
         );
@@ -161,7 +116,7 @@ class TicketFeed extends Component {
                     </Tabs>
                     </AppBar>
                         {value === 0 &&
-                            this.renderTutorClasses()}
+                            this.renderTutorClasses(this.props)}
                         {value === 1 &&
                             this.renderStudentRequests()}
                     </div>

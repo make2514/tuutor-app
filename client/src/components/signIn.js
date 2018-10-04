@@ -54,6 +54,7 @@ class SignIn extends React.Component {
     };
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.goToRegister = this.goToRegister.bind(this);
   }
 
   goToRegister(e) {
