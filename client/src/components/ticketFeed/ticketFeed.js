@@ -13,6 +13,7 @@ import ImageIcon from '@material-ui/icons/Image';
 import WorkIcon from '@material-ui/icons/Work';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import Header from '../header/header';
+import { goToPage } from '../../utils';
 
 
 function TabContainer(props) {
@@ -61,60 +62,49 @@ class TicketFeed extends Component {
         return (
             <TabContainer>
                 <List>
-                    <ListItem>
+                    <ListItem onClick={() => goToPage(this.props, '/viewticket')} >
                         <Avatar>
                             <ImageIcon />
                         </Avatar>
                         <ListItemText primary="Name" secondary="Class description" />
                     </ListItem>
-                    <ListItem>
+                    <ListItem onClick={() => goToPage(this.props, '/viewticket')} >
                         <Avatar>
                             <ImageIcon />
                         </Avatar>
                         <ListItemText primary="Name" secondary="Class description" />
                     </ListItem>
-                    <ListItem>
+                    <ListItem onClick={() => goToPage(this.props, '/viewticket')} >
                         <Avatar>
                             <ImageIcon />
                         </Avatar>
                         <ListItemText primary="Name" secondary="Class description" />
                     </ListItem>
-                    <ListItem>
+                    <ListItem onClick={() => goToPage(this.props, '/viewticket')} >
                         <Avatar>
                             <ImageIcon />
                         </Avatar>
                         <ListItemText primary="Name" secondary="Class description" />
                     </ListItem>
-                    <ListItem>
+                    <ListItem onClick={() => goToPage(this.props, '/viewticket')} >
                         <Avatar>
                             <ImageIcon />
                         </Avatar>
                         <ListItemText primary="Name" secondary="Class description" />
                     </ListItem>
-                    <ListItem>
+                    <ListItem onClick={() => goToPage(this.props, '/viewticket')} >
                         <Avatar>
                             <ImageIcon />
                         </Avatar>
                         <ListItemText primary="Name" secondary="Class description" />
                     </ListItem>
-                    <ListItem>
+                    <ListItem onClick={() => goToPage(this.props, '/viewticket')} >
                         <Avatar>
                             <ImageIcon />
                         </Avatar>
                         <ListItemText primary="Name" secondary="Class description" />
                     </ListItem>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
+                    
                 </List>
             </TabContainer>
         );
@@ -124,23 +114,23 @@ class TicketFeed extends Component {
         return (
             <TabContainer>
                 <List>
-                    <ListItem>
+                <ListItem onClick={() => goToPage(this.props, '/viewticket')} >
                         <Avatar>
                             <ImageIcon />
                         </Avatar>
-                        <ListItemText primary="Name" secondary="Request description" />
+                        <ListItemText primary="Name" secondary="Class description" />
                     </ListItem>
-                    <ListItem>
+                    <ListItem onClick={() => goToPage(this.props, '/viewticket')} >
                         <Avatar>
                             <ImageIcon />
                         </Avatar>
-                        <ListItemText primary="Name" secondary="Request description" />
+                        <ListItemText primary="Name" secondary="Class description" />
                     </ListItem>
-                    <ListItem>
+                    <ListItem onClick={() => goToPage(this.props, '/viewticket')} >
                         <Avatar>
                             <ImageIcon />
                         </Avatar>
-                        <ListItemText primary="Name" secondary="Request description" />
+                        <ListItemText primary="Name" secondary="Class description" />
                     </ListItem>
                 </List>
             </TabContainer>

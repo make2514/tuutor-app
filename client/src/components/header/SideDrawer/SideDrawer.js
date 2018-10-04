@@ -16,6 +16,9 @@ const sideDrawer = props => {
     <nav className={drawerClasses}>
       <ul>
         <li>
+          <a onClick={(event) => goToPage(event, '/mytickets')} >My Tickets</a>
+        </li>
+        <li>
           <a onClick={(event) => goToPage(event, '/ticketfeed')} >Ticket Feed</a>
         </li>
         <li>
