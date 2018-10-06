@@ -12,11 +12,11 @@ class Database {
             dbUri = 'mongodb://localhost/tuutor';
         }
         mongoose.connect(dbUri)
-            .then(() => console.log('connected'));
+            .then(() => console.log('Connected to database'));
         this.db = mongoose.connection;
         this.db.on('error', console.error.bind(console, 'Connection error:'));
         this.db.once('open', () => {
-            console.log('Connection open to database');
+            console.log('Connection to MongoDB server');
         });
     }
 }

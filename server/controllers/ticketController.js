@@ -1,21 +1,21 @@
 const mongoose = require('mongoose');
-const Notification = require('../models/notificationModel');
+const Ticket = require('../models/ticketModel');
 
 module.exports = {
     findAll() {
-        return Notification.find()
+        return Ticket.find()
             .exec()
             .then(obj => { return obj });
     },
 
     findById(id) {
-        return Notification.findById(id)
+        return Ticket.findById(id)
             .exec()
             .then(user => {return user})
     },
 
     create(note) {
-       return Notification.create({
+       return Ticket.create({
             _id: mongoose.Types.ObjectId(),
             ...note
         })
@@ -23,12 +23,12 @@ module.exports = {
     },
 
     edit(note) {
-        return Notification.findByIdAndUpdate(note._id, note, {new: true})
+        return Ticket.findByIdAndUpdate(note._id, note, {new: true})
             .then(doc => { return doc })
     },
 
     delete(id) {
-        Notification.findByIdAndDelete(id)
+        Ticket.findByIdAndDelete(id)
             .then(result => { return result })
     }
 };

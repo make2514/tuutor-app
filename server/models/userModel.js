@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
     age: Number,
     bio: String,
     reputation: Number,
-    notifications: [{
+    tickets: [{
         type: mongoose.Schema.ObjectId,
         ref: 'Notification'
     }]

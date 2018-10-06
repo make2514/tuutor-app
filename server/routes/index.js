@@ -1,13 +1,16 @@
 const express = require("express");
-const router = express.Router();
 const checkAuth = require('../middleware/checkAuth');
 
 const usersRouter = require('./userRoute');
 const notificationRouter = require('./notificationRoute');
+const contractRoute = require('./contractRoute');
+
+const router = express.Router();
 
 //secure routes
 router.use('/notification', checkAuth, notificationRouter);
-//partly secure routes
+router.use('/contract', checkAuth, contractRoute);
+//partly secure routes. the secured routes are defined inside the router
 router.use('/users', usersRouter);
 //open routes
 
