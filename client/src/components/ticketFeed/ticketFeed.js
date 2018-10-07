@@ -57,6 +57,18 @@ class TicketFeed extends Component {
         this.setState({ value });
     };
 
+    getTicketFeed() {
+        console.log('...',localStorage.getItem('authToken'));
+        fetch('/notification', { 
+          method: 'get',
+          headers: new Headers({
+           'Authorization': localStorage.getItem('authToken')
+          })
+         })
+         .then(res => res.json())
+         .then(console.log)
+      }
+
     renderTutorClasses(props) {
         const tutorClassesDummyData = [1,1,1,1,1,1,1,1,1];
         const tutorClasses = tutorClassesDummyData.map((value, index) => (
@@ -149,6 +161,7 @@ class TicketFeed extends Component {
     render() {
         const { classes } = this.props;
         const { value } = this.state;
+        console.log('...', this.getTicketFeed());
         return(
             <div>
                 <Header />
