@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Header from './header/header';
 import Button from '@material-ui/core/Button';
 import { goToPage } from '../utils';
+import Contract from './contractButtons';
 
 const styles = theme => ({
     container: {
@@ -80,6 +81,7 @@ class ViewTicketMaster extends Component {
                     <Button onClick={() => goToPage(this.props, '/chat')} variant="contained" color="primary" className={classes.button}>
                         Apply
                 </Button>
+                <Contract />
                 </form>
             </div>
         );
