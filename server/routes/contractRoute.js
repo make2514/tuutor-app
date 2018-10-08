@@ -49,7 +49,7 @@ router.get('/message/:contractId', (req, res, next) => {
 });
 
 router.post('/message', (req, res, next) => {
-    contractController.addMessage(req.body.contractId, req.body.message)
+    contractController.addMessage(req.body)
         .then(response => res.send(response))
         .catch(err => {
             console.error(err);

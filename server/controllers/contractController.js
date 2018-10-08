@@ -30,16 +30,16 @@ module.exports = {
             .then(doc => { return doc })
     },
 
-    addMessage(contractId, message) {
-        return Contract.findById(contractId)
+    addMessage(message) {
+        return Contract.findById(message.contractId)
             .then(contract => {
                 contract.messages.push({
                     time: Date.now(),
-                    ...message
+                    ...message.message
                 });
                 return contract.save();
             })
-            .then(res => { return res });
+            .then(response => { return response.messages });
     },
 
     getMessages(contractId) {
