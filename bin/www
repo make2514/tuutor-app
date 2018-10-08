@@ -6,8 +6,8 @@
 
 const debug = require('debug')('tuutor:server');
 const http = require('http');
+const socket = require('socket.io');
 const app = require('../server/app');
-const MongoClient = require("mongodb").MongoClient;
 
 /**
  * Get port from environment and store in Express.
@@ -21,6 +21,12 @@ app.set('port', port);
  */
 
 const server = http.createServer(app);
+
+/**
+ * Socket.io chat
+ */
+const io = socket(server);
+require('../server/chatServer')(io);
 
 /**
  * Listen on provided port, on all network interfaces.

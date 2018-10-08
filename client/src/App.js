@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import UsersList from "./components/usersList";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import SignIn from "./components/signIn";
 import TicketFeed from './components/ticketFeed/ticketFeed';
@@ -11,6 +10,7 @@ import Avatar from "./components/profile/avatar";
 import CreateProfile from "./components/profile/createProfile";
 import CreateTicket from "./components/createTicket";
 import ViewTicket from "./components/viewTicket";
+import Chat from './components/chat';
 
 class App extends Component {
     render() {
@@ -28,6 +28,9 @@ class App extends Component {
                     <Route path ="/avatar" exact component={Avatar}/>
                     <Route path ="/createticket" exact component={CreateTicket}/>
                     <Route path ="/viewticket" exact component={ViewTicket}/>
+                    <Route path={'/chat/:chatId'} exact component={
+                        (props) => (<Chat chatId={props.match.params.chatId} />)
+                    }/>
                 </Switch>
             </BrowserRouter>
         );
