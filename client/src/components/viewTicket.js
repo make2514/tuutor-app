@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Header from './header/header';
 import Button from '@material-ui/core/Button';
-import { goToPage } from '../utils';
 import Contract from './contractButtons';
 
 const styles = theme => ({
@@ -55,13 +53,6 @@ class ViewTicketMaster extends Component {
 
     render() {
         const { classes } = this.props;
-        let shown = {
-            display: this.state.shown ? "block" : "none"
-        };
-
-        let hidden = {
-            display: this.state.shown ? "none" : "block"
-        }
 
         return (
             <div>
