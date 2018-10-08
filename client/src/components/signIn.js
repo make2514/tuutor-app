@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withRouter } from 'react-router-dom';
-import { goToPage } from '../utils';
+import { goToPage, didUserLogin } from '../utils';
 
 const styles = theme => ({
   layout: {
@@ -84,11 +84,16 @@ class SignIn extends React.Component {
               "password": context.state.password
           })
      })
-     .then(function(res) {
-        if (res.ok) {
-          goToPage(context.props, '/ticketfeed');
-        }
-     });
+     .then(res => res.json())
+     .then(resBody => {
+      console.log(resBody);
+      if (resBody.token) {
+        localStorage.setItem('authToken', resBody.token);
+      } else {
+        console.log('error');
+      }
+     })
+     .catch(console.log);
   }
 
   render() {
