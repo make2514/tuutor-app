@@ -26,17 +26,43 @@ const styles = theme => ({
         marginTop: 16,
         maxWidth: 100,
         margin: 'auto'
-
     },
     dense: {
         marginTop: 16,
     },
+    contract:{
+        marginTop: 16,
+        maxWidth: 100,
+        margin: 'auto',
+        display:'block',
+    }
 
 });
 
 class ViewTicketMaster extends Component {
+    constructor() {
+        super();
+        this.state = {
+            isHidden: true
+        };
+    }
+
+    toggleHidden () {
+        this.setState({
+            isHidden: !this.state.isHidden
+        })
+    }
+
     render() {
         const { classes } = this.props;
+        let shown = {
+            display: this.state.shown ? "block" : "none"
+        };
+
+        let hidden = {
+            display: this.state.shown ? "none" : "block"
+        }
+
         return (
             <div>
                 <Header />
@@ -78,10 +104,12 @@ class ViewTicketMaster extends Component {
                         margin="normal"
                         variant="outlined"
                     />
-                    <Button onClick={() => goToPage(this.props, '/chat')} variant="contained" color="primary" className={classes.button}>
+                    {this.state.isHidden &&
+                    <Button onClick={this.toggleHidden.bind(this)} variant="contained" color="primary" className={classes.button}>
                         Apply
-                </Button>
-                <Contract />
+                    </Button>}
+                    {!this.state.isHidden && <Contract />}
+
                 </form>
             </div>
         );
