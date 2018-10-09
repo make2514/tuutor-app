@@ -61,14 +61,14 @@ class Profile extends Component {
 
     getProfile() {
         console.log('...',localStorage.getItem('authToken'));
-        fetch('/users/5bbc8af7fa33d33d8427d8b7', {
+        fetch('/users/currentUser', {
             method: 'get',
             headers: new Headers({
                 'Authorization': localStorage.getItem('authToken')
             })
         })
             .then(res => res.json())
-            .then(Profile => this.setState(Profile))
+            .then(profile => this.setState(profile))
     }
 
   render() {
