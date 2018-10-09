@@ -19,8 +19,8 @@ class App extends Component {
                 <Switch>
                     <Route path="/" exact component={SignIn}/>
                     <Route path="/signin" exact component={SignIn}/>
-                    <Route path="/ticketfeed" exact component={TicketFeed}/>
-                    <Route path="/mytickets" exact component={MyTickets}/>
+                    <Route path="/ticketfeed" exact component={(props) => (<TicketFeed {...props} title={'Ticket feed'} fetchPath={'/notification'}/>)}/>
+                    <Route path="/mytickets" exact component={(props) => (<TicketFeed {...props} title={'My tickets'} fetchPath={'/notification'}/>)}/>
                     <Route path="/register" exact component={Register}/>
                     <Route path="/header" exact component={Header}/>
                     <Route path ="/profile" exact component={Profile}/>

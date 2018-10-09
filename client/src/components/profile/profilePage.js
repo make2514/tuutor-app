@@ -38,18 +38,38 @@ const styles = theme => ({
 });
 
 class Profile extends Component {
-  state = {
-    name: '',
-    age: '',
-    phone: '',
-    email: '',
-    multiline: ''
-  };
+    constructor(props) {
+        super(props);
+        this.state = {
+            firstName: '',
+            lastName:'',
+            age: '',
+            phone: '',
+            email: '',
+            bio: ''
+        };
+    }
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
     });
   };
+
+   componentDidMount(){
+       this.getProfile();
+  }
+
+    getProfile() {
+        console.log('...',localStorage.getItem('authToken'));
+        fetch('/users/5bbc8af7fa33d33d8427d8b7', {
+            method: 'get',
+            headers: new Headers({
+                'Authorization': localStorage.getItem('authToken')
+            })
+        })
+            .then(res => res.json())
+            .then(Profile => this.setState(Profile))
+    }
 
   render() {
     const { classes } = this.props;
@@ -60,14 +80,14 @@ class Profile extends Component {
           <Header />
           <Avatar />
           <div className={classes.profileName} component="p">
-            Rick Harrison
+              {this.state.firstName+" "+this.state.lastName}
           </div>
           <Grid container className={classes.root}>
             <Grid item xs={6}>
-              <Papersheet text1={"Reputation"} text2={"1337"} />
+              <Papersheet text1={"Reputation"} text2={"0"} />
             </Grid>
             <Grid item xs={6}>
-              <Papersheet text1={"20.1.2018"} text2={"Joined"} />
+              <Papersheet text1={"10.10.2018"} text2={"Joined"} />
             </Grid>
           </Grid>
         </div>
@@ -76,7 +96,7 @@ class Profile extends Component {
             id="outlined-name"
             label="name"
             className={classes.textField}
-            value={this.state.name}
+            value={this.state.firstName}
             onChange={this.handleChange('name')}
             margin="none"
             variant="outlined"
@@ -112,8 +132,8 @@ class Profile extends Component {
             id="outlined-multiline-flexible"
             label="Bio"
             multiline
-            value={this.state.multiline}
-            onChange={this.handleChange('multiline')}
+            value={this.state.bio}
+            onChange={this.handleChange('bio')}
             className={classes.textField}
             margin="normal"
             variant="outlined"

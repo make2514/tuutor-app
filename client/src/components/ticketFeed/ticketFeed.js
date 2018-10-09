@@ -86,7 +86,8 @@ class TicketFeed extends Component {
       }
 
     renderTutorClasses(props) {
-        console.log(this.state.ticketFeed, '...');
+        console.log(this.props, '...');
+        console.log(props, '....');
         const tutorClassesData = this.state.ticketFeed.filter(ticket => {
             return ticket.tutor === true;
         });

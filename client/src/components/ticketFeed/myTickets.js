@@ -57,76 +57,13 @@ class MyTickets extends Component {
     renderTutorClasses() {
         
         return (
-            <TabContainer>
-                <List>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        
-                        <ListItemText style={{ zIndex: '10' }} primary={<MyTicketItem name={"Ticket Name 1"}/>} secondary="get this from db" />
-                    </ListItem>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText style={{ zIndex: '8' }} primary={<MyTicketItem name={"Ticket Name 5"}/>} secondary="get this from db" />
-
-                    </ListItem>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText style={{ zIndex: '7' }} primary={<MyTicketItem name={"Ticket Name 666"}/>} secondary="get this from db" />
-
-                    </ListItem>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText style={{ zIndex: '5' }} primary={<MyTicketItem name={"Ticket Name 2"}/>} secondary="get this from db" />
-
-                    </ListItem>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText style={{ zIndex: '4' }} primary={<MyTicketItem name={"Ticket Name 3"}/>} secondary="get this from db" />
-
-                    </ListItem>
-                    
-                </List>
-            </TabContainer>
+           <div></div>
         );
     }
 
     renderStudentRequests() {
         return (
-            <TabContainer>
-                <List>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText style={{ zIndex: '5' }} primary={<MyTicketItem name={"Ticket Name 2"}/>} secondary="get this from db" />
-
-                    </ListItem>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText style={{ zIndex: '4' }} primary={<MyTicketItem name={"Ticket Name 3"}/>} secondary="get this from db" />
-
-                    </ListItem>
-                    <ListItem>
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText style={{ zIndex: '3' }} primary={<MyTicketItem name={"Ticket Name 9"}/>} secondary="get this from db" />
-
-                    </ListItem>
-                </List>
-            </TabContainer>
+            <div></div>
         );
     }
     
