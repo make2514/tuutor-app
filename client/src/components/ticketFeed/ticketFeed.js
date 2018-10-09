@@ -51,7 +51,12 @@ class TicketFeed extends Component {
 
     state = {
         value: 0,
+        ticketFeed: []
     };
+
+    componentDidMount() {
+        this.getTicketFeed();
+    }
 
     handleChange = (event, value) => {
         this.setState({ value });
@@ -66,93 +71,46 @@ class TicketFeed extends Component {
           })
          })
          .then(res => res.json())
-         .then(console.log)
+         .then(ticketFeed => this.setState({ticketFeed}))
       }
 
     renderTutorClasses(props) {
-        const tutorClassesDummyData = [1,1,1,1,1,1,1,1,1];
-        const tutorClasses = tutorClassesDummyData.map((value, index) => (
+        const tutorClassesData = this.state.ticketFeed.filter(ticket => {
+            return ticket.tutor === true;
+        });
+        const tutorClasses = tutorClassesData.map((value, index) => (
                 <ListItem onClick={() => goToPage(props, '/viewticket')} key={index}>
                     <Avatar>
                         <ImageIcon />
                     </Avatar>
-                    <ListItemText primary="Name" secondary="Class description" />
+                    <ListItemText primary={value.subject} secondary={value.info} />
                 </ListItem>
             ));
         return (
             <TabContainer>
                 <List>
-                    <ListItem onClick={() => goToPage(this.props, '/viewticket')} >
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
-                    <ListItem onClick={() => goToPage(this.props, '/viewticket')} >
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
-                    <ListItem onClick={() => goToPage(this.props, '/viewticket')} >
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
-                    <ListItem onClick={() => goToPage(this.props, '/viewticket')} >
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
-                    <ListItem onClick={() => goToPage(this.props, '/viewticket')} >
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
-                    <ListItem onClick={() => goToPage(this.props, '/viewticket')} >
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
-                    <ListItem onClick={() => goToPage(this.props, '/viewticket')} >
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
-                    
                     {tutorClasses}
                 </List>
             </TabContainer>
         );
     }
 
-    renderStudentRequests() {
+    renderStudentRequests(props) {
+        const tutorClassesData = this.state.ticketFeed.filter(ticket => {
+            return ticket.tutor === false;
+        });
+        const tutorClasses = tutorClassesData.map((value, index) => (
+                <ListItem onClick={() => goToPage(props, '/viewticket')} key={index}>
+                    <Avatar>
+                        <ImageIcon />
+                    </Avatar>
+                    <ListItemText primary={value.subject} secondary={value.info} />
+                </ListItem>
+            ));
         return (
             <TabContainer>
                 <List>
-                <ListItem onClick={() => goToPage(this.props, '/viewticket')} >
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
-                    <ListItem onClick={() => goToPage(this.props, '/viewticket')} >
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
-                    <ListItem onClick={() => goToPage(this.props, '/viewticket')} >
-                        <Avatar>
-                            <ImageIcon />
-                        </Avatar>
-                        <ListItemText primary="Name" secondary="Class description" />
-                    </ListItem>
+                    {tutorClasses}
                 </List>
             </TabContainer>
         );
@@ -161,7 +119,7 @@ class TicketFeed extends Component {
     render() {
         const { classes } = this.props;
         const { value } = this.state;
-        console.log('...', this.getTicketFeed());
+        console.log(this.state);
         return(
             <div>
                 <Header />
@@ -175,7 +133,7 @@ class TicketFeed extends Component {
                         {value === 0 &&
                             this.renderTutorClasses(this.props)}
                         {value === 1 &&
-                            this.renderStudentRequests()}
+                            this.renderStudentRequests(this.props)}
                     </div>
             </div>
         )
