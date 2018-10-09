@@ -5,6 +5,7 @@ const contractSchema = new mongoose.Schema({
     created: { type: Date, required: true },
     terms: { type: String, required: true },
     payment: { type: String, required: true },
+    status: { type: String, required: true, default: 'pending' },
     applicant: {
         type: mongoose.Schema.ObjectId,
         ref: 'User',

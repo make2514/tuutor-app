@@ -6,7 +6,11 @@ const ticketSchema = new mongoose.Schema({
     info: { type: String, required: true },
     payment: String,
     location: String,
-    tutor: Boolean
+    tutor: Boolean,
+    owner: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+    }
 });
 
 module.exports = mongoose.model('Ticket', ticketSchema);

@@ -10,11 +10,13 @@ module.exports = {
 
     findById(id) {
         return Ticket.findById(id)
+            .populate({ path: 'owner', select: 'firstName lastName'})
             .exec()
             .then(user => {return user})
     },
 
     create(note) {
+        console.log(note);
        return Ticket.create({
             _id: mongoose.Types.ObjectId(),
             ...note

@@ -14,7 +14,6 @@ module.exports = {
     findById(id) {
         return User.findById(id)
             .select('-password')
-            .populate('notifications')
             .exec()
             .then(user => {return user})
     },

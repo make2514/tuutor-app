@@ -4,7 +4,6 @@ module.exports.checkAuth = (req, res, next) => {
     try {
         const token = req.headers.authorization;
         req.userData = jwt.verify(token, 'key');
-        console.log(req.userData);
         next();
     } catch (e) {
         return res.status(401).json({

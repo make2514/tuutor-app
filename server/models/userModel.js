@@ -9,11 +9,7 @@ const userSchema = new mongoose.Schema({
     phone: String,
     age: Number,
     bio: String,
-    reputation: Number,
-    tickets: [{
-        type: mongoose.Schema.ObjectId,
-        ref: 'Notification'
-    }]
+    reputation: Number
 });
 
 module.exports = mongoose.model('User', userSchema);
