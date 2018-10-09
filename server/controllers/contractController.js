@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Contract = require('../models/contractModel');
+const ticketController = require('../controllers/ticketController');
 
 module.exports = {
     findAll() {
@@ -45,5 +46,22 @@ module.exports = {
     getMessages(contractId) {
         return Contract.findById(contractId, 'messages')
             .then(messages => { return messages })
+    },
+
+    getMyContract(ticketId, userId) {
+        let contractOwnerId;
+        ticketController.findById(ticketId)
+            .then(ticket => {
+                contractOwnerId = ticket.owner;
+                return Contract.find({
+                    ticket: ticket._id
+                });
+            })
+            .then(contract => {
+                if (contract.applicant === userId || contractOwnerId === userId) {
+                    return contract;
+                }
+                throw 'No contract found'
+            })
     }
 };

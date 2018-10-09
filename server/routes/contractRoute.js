@@ -57,4 +57,13 @@ router.post('/message', (req, res, next) => {
         });
 });
 
+router.get('/mycontract/:ticketId', (req, res, next) => {
+    contractController.getMyContract(req.params.ticketId, req.userData._id)
+        .then(contract => res.send(contract))
+        .catch(err => {
+            console.error(err);
+            res.status(510).json({ error: err });
+        });
+});
+
 module.exports = router;
