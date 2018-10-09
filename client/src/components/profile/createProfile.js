@@ -52,9 +52,33 @@ class CreateProfile extends Component {
             [name]: event.target.value,
         });
     };
+
+    createProfile(context) {
+        const { age,gender,phone,bio } = context.state;
+
+        return fetch('/users/', {
+            method: 'put',
+            headers: new Headers({
+                authorization: localStorage.getItem("authToken")
+            }),
+            body:  {
+                age,
+                gender,
+                phone,
+                bio
+            }
+        })
+            .then(function(res) {
+                console.log(res);
+                if (res.ok) {
+                    goToPage(context.props, '/profile')
+                }
+            });
+    }
+
     render() {
         const { classes } = this.props;
-        console.log(this.props.history);
+        //console.log(this.props.history);
         return (
             <div>
                 <Header />
@@ -63,8 +87,8 @@ class CreateProfile extends Component {
                         id="outlined-name"
                         label="Age"
                         className={classes.textField}
-                        value={this.state.name}
-                        onChange={this.handleChange('name')}
+                        value={this.state.age}
+                        onChange={this.handleChange('age')}
                         margin="none"
                         variant="outlined"
                     />
@@ -72,21 +96,12 @@ class CreateProfile extends Component {
                         id="outlined-name"
                         label="Gender"
                         className={classes.textField}
-                        value={this.state.lastName}
+                        value={this.state.gender}
                         onChange={this.handleChange('lastName')}
                         margin="none"
                         variant="outlined"
                     />
-                    <TextField
-                        required
-                        id="outlined-name"
-                        label="email"
-                        className={classes.textField}
-                        value={this.state.email}
-                        onChange={this.handleChange('email')}
-                        margin="none"
-                        variant="outlined"
-                    />
+
                     <TextField
                         id="outlined-phone"
                         label="phone"
@@ -100,13 +115,13 @@ class CreateProfile extends Component {
                         id="outlined-multiline-flexible"
                         label="Bio"
                         multiline
-                        value={this.state.multiline}
+                        value={this.state.bio}
                         onChange={this.handleChange('multiline')}
                         className={classes.textField}
                         margin="normal"
                         variant="outlined"
                     />
-                     <Button onClick={() => goToPage(this.props, '/profile')} variant="contained" color="primary"className={classes.button}>
+                     <Button onClick={() => this.createProfile(this)} variant="contained" color="primary"className={classes.button}>
                      Save
                      </Button>
                 </form>

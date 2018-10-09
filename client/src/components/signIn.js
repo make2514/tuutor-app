@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
@@ -63,17 +61,17 @@ class SignIn extends React.Component {
   }
 
   handleEmailChange(e, value) {
-    console.log(e.target.value);
+    //console.log(e.target.value);
     this.setState({email: e.target.value});
   }
 
   handlePasswordChange(e, value) {
-    console.log(e.target.value);
+    //console.log(e.target.value);
     this.setState({password: e.target.value});
   }
 
   login(e, context) {
-    console.log('event', e, context.state);
+    //console.log('event', e, context.state);
     return fetch('http://localhost:8000/users/login', { 
       method: 'post',
       headers: new Headers({
@@ -86,9 +84,9 @@ class SignIn extends React.Component {
      })
      .then(res => res.json())
      .then(resBody => {
-      console.log(resBody);
       if (resBody.token) {
         localStorage.setItem('authToken', resBody.token);
+        goToPage(this.props, '/ticketfeed');
       } else {
         console.log('error');
       }
