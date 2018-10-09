@@ -1,4 +1,5 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const userController = require('../controllers/userController');
 const checkAuth = require('../middleware/checkAuth').checkAuth;
 
@@ -11,6 +12,30 @@ router.get('/', checkAuth, (req, res, next) => {
             console.error(err);
             res.status(500).json({ error: err });
         });
+});
+
+router.get('/currentUser', checkAuth, (req, res, next) => {
+    console.log('/currentUser', req.headers.authorization);
+    try {
+        const token = req.headers.authorization;
+        const userData = jwt.verify(token, 'key');
+        console.log('userData', userData._id);
+        userController
+            .findById(userData._id)
+            .then(function(info) {
+                res.send(info);
+            })
+    } catch (e) {
+        return res.status(401).json({
+            message: 'Failed to fetch user info'
+        });
+    }
+    // userController.findAll()
+    //     .then(obj => res.send(obj))
+    //     .catch(err => {
+    //         console.error(err);
+    //         res.status(500).json({ error: err });
+    //     });
 });
 
 router.get('/:id', checkAuth, (req, res, next) => {
