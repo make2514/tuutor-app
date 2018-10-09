@@ -43,7 +43,7 @@ class TicketMaster extends Component {
         subject: '',
         info: '',
         payment: '',
-        tutor:true,
+        tutor: '',
     };
 
     handleChange = name => event => {
@@ -75,9 +75,17 @@ class TicketMaster extends Component {
         })
         .then(function(res) {
             if (res.ok) {
-                goToPage(context.props, '/viewticket')
+                return res.json();
+            } else {
+                goToPage(this.props, '/signin');
             }
-        });
+        })
+        .then(ticket => {
+            goToPage(this.props, '/viewTicket?ticket=', ticket._id);
+        })
+         .catch(err => {
+            console.log('err', err);
+         });
     }
 
     render() {

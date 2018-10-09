@@ -58,6 +58,7 @@ router.post('/message', (req, res, next) => {
 });
 
 router.get('/mycontract/:ticketId', (req, res, next) => {
+    console.log(req, res);
     contractController.getMyContract(req.params.ticketId, req.userData._id)
         .then(contract => res.send(contract))
         .catch(err => {
