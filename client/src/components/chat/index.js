@@ -15,7 +15,7 @@ const styles = theme => ({
 
     },
     messages: {
-        marginBottom: '32px',
+        marginBottom: '36px',
         marginLeft: '8px',
         marginRight: '8px'
     },
@@ -64,7 +64,7 @@ class Chat extends Component {
                     id="input"
                     name={'input'}
                     className={classes.input}
-                    ref={(el) => this.inputField = el}
+                    value={this.state.input}
                     onChange={this.handleChange}
                     onKeyPress={(e) => { this.handleKeyPress(e, this) }}
                     fullWidth={true}
@@ -116,11 +116,12 @@ class Chat extends Component {
     };
 
     handleSubmit = (e, context) => {
-        e.preventDefault();
         if (context.state.input === '' || context.state.input === null) return;
         sendMessage(context.state.input);
-        context.setState({ value: '' });
-        
+        context.setState({
+            value: '',
+            input: ''
+        });
     };
 
     handleKeyPress = (e, context) => {
