@@ -50,7 +50,7 @@ module.exports = {
 
     getMyContract(ticketId, userId) {
         let contractOwnerId;
-        ticketController.findById(ticketId)
+        return ticketController.findById(ticketId)
             .then(ticket => {
                 contractOwnerId = ticket.owner;
                 return Contract.find({
