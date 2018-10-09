@@ -19,7 +19,7 @@ const styles = theme => ({
 
 function PaperSheet(props) {
   const { classes } = props;
-  console.log(classes);
+  //console.log(classes);
 
   return (
     <div>

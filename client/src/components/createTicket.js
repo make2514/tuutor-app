@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 import TextField from '@material-ui/core/TextField';
 import Header from './header/header';
 import Button from '@material-ui/core/Button';
@@ -34,8 +39,50 @@ const styles = theme => ({
 });
 
 class TicketMaster extends Component {
+    state = {
+        subject: '',
+        info: '',
+        payment: '',
+        tutor:true,
+    };
+
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
+
+    createTicket(context) {
+        const {
+            subject,
+            info,
+            payment,
+            tutor,
+        } = context.state;
+
+        return fetch('/notification', {
+            method: 'post',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'authorization': localStorage.getItem("authToken")
+            }),
+            body: JSON.stringify( {
+                subject,
+                info,
+                payment,
+                tutor,
+            })
+        })
+        .then(function(res) {
+            if (res.ok) {
+                goToPage(context.props, '/viewticket')
+            }
+        });
+    }
+
     render() {
         const { classes } = this.props;
+        console.log();
         return (
             <div>
                 <Header />
@@ -44,8 +91,9 @@ class TicketMaster extends Component {
                         required
                         id="outlined-required"
                         label="Subject"
-                        defaultValue=""
                         className={classes.textField}
+                        value={this.state.subject}
+                        onChange={this.handleChange('subject')}
                         margin="none"
                         variant="outlined"
                     />
@@ -54,8 +102,9 @@ class TicketMaster extends Component {
                         label="description..."
                         multiline
                         rows="9"
-                        defaultValue=""
                         className={classes.textField}
+                        value={this.state.info}
+                        onChange={this.handleChange('info')}
                         margin="normal"
                         variant="outlined"
                     />
@@ -64,12 +113,25 @@ class TicketMaster extends Component {
                         label="payment details..."
                         multiline
                         rows="5"
-                        defaultValue=""
                         className={classes.textField}
+                        value={this.state.payment}
+                        onChange={this.handleChange('payment')}
                         margin="normal"
                         variant="outlined"
                     />
-                    <Button onClick={() => goToPage(this.props, '/viewticket')} variant="contained" color="primary" className={classes.button}>
+                    <FormControl component="fieldset" className={classes.formControl}>
+                        <RadioGroup
+                            aria-label="Tutor"
+                            name="tutor"
+                            className={classes.group}
+                            value={this.state.tutor}
+                            onChange={this.handleChange('tutor')}
+                        >
+                            <FormControlLabel value="true" control={<Radio />} label="Tutor" />
+                            <FormControlLabel value="false" control={<Radio />} label="Student" />
+                        </RadioGroup>
+                    </FormControl>
+                    <Button onClick={() => this.createTicket(this)} variant="contained" color="primary" className={classes.button}>
                         Create
                     </Button>
                 </form>
