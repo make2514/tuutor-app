@@ -72,7 +72,7 @@ class SignIn extends React.Component {
 
   login(e, context) {
     //console.log('event', e, context.state);
-    return fetch('http://localhost:8000/users/login', { 
+    return fetch('/users/login', {
       method: 'post',
       headers: new Headers({
        'Content-Type': 'application/json'

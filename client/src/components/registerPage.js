@@ -42,7 +42,13 @@ class Register extends React.Component {
     state = {
         email: '',
         password: '',
-        passwordRepetition: ''
+        passwordRepetition: '',
+        firstName: '',
+        lastName: '',
+        age: '',
+        phone: '',
+        bio: '',
+
     };
     
     handleChange = name => event => {
@@ -52,7 +58,8 @@ class Register extends React.Component {
     };
 
     register(context) {
-        const { email,
+        const {
+            email,
             password,
             passwordRepetition,
             firstName,
@@ -66,7 +73,7 @@ class Register extends React.Component {
             console.log('check your password');
             return;
         }
-        return fetch('http://localhost:8000/users/signup', { 
+        return fetch('/users/signup', {
           method: 'post',
           headers: new Headers({
               'Content-Type': 'application/json',
@@ -83,11 +90,32 @@ class Register extends React.Component {
               })
          })
             .then(function(res) {
+                const { email, password} = context.state;
                 if (res.ok) {
-                    goToPage(context.props, '/profile')
+                    return fetch('/users/login', {
+                        method: 'post',
+                        headers: new Headers({
+                            'Content-Type': 'application/json'
+                        }),
+                        body: JSON.stringify( {
+                            "email": email,
+                            "password": password,
+                        })
+                    })
+                    //
                 }
-            });
-    }
+            })
+            .then(res => res.json())
+            .then(resBody => {
+                if (resBody.token) {
+                    localStorage.setItem('authToken', resBody.token);
+                    goToPage(this.props, '/profile');
+                } else {
+                    console.log('error');
+                }
+            })
+            .catch(console.log);
+        }
 
     render() {
         const { classes } = this.props;
