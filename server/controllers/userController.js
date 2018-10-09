@@ -32,20 +32,20 @@ module.exports = {
             .then(doc => { return doc })
     },
 
-    signUp({email, password}) {
-        if (!email) throw "Email not given";
+    signUp(userInfo) {
+        if (!userInfo.email) throw "Email not given";
 
-        return User.findOne({ email: email })
+        return User.findOne({ email: userInfo.email })
             .exec()
             .then(user => {
                 if (user) throw "User already exists";
             })
             .then(() => {
-                return bcrypt.hash(password, 10);
+                return bcrypt.hash(userInfo.password, 10);
             })
             .then(hashedPassword => {
                 return this.create({
-                    email: email,
+                    ...userInfo,
                     password: hashedPassword
                 })
             })
