@@ -68,16 +68,30 @@ class TicketFeed extends Component {
            'Authorization': localStorage.getItem('authToken')
           })
          })
-         .then(res => res.json())
-         .then(ticketFeed => this.setState({ticketFeed}))
+         .then(res => {
+             console.log('...', res);
+            if (res.ok) {
+                return res.json();
+            } else {
+                // TODO: redirect to sign in page
+                goToPage(this.props, '/signin');
+            }
+         })
+         .then(ticketFeed => {
+            return this.setState({ticketFeed});
+         })
+         .catch(err => {
+            console.log('err', err);
+         })
       }
 
     renderTutorClasses(props) {
+        console.log(this.state.ticketFeed, '...');
         const tutorClassesData = this.state.ticketFeed.filter(ticket => {
             return ticket.tutor === true;
         });
         const tutorClasses = tutorClassesData.map((value, index) => (
-                <ListItem onClick={() => goToPage(props, '/viewticket')} key={index}>
+                <ListItem onClick={() => goToPage(props, '/viewticket?ticket=', value._id)} key={index}>
                     <Avatar>
                         <ImageIcon />
                     </Avatar>

@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Header from './header/header';
 import Button from '@material-ui/core/Button';
 import Contract from './contractButtons';
+import { goToPage } from '../utils';
 
 const styles = theme => ({
     container: {
@@ -41,9 +42,50 @@ class ViewTicketMaster extends Component {
     constructor() {
         super();
         this.state = {
-            isHidden: true
+            isHidden: true,
+            subject: '',
+            description: '',
+            payment: '',
+            status: ''
         };
     }
+
+    componentDidMount() {
+        this.getTicketInfo();
+    }
+
+    getTicketInfo() {
+        console.log('...',localStorage.getItem('authToken'));
+        let urlParams = new URLSearchParams(window.location.search);
+        let ticketId = urlParams.get('ticket');
+        fetch('/notification/' + ticketId, { 
+          method: 'get',
+          headers: new Headers({
+           'Authorization': localStorage.getItem('authToken')
+          })
+         })
+         .then(res => {
+             console.log('...', res);
+            if (res.ok) {
+                return res.json();
+            } else {
+                // TODO: redirect to sign in page
+                goToPage(this.props, '/signin');
+            }
+         })
+         .then(ticketInfo => {
+             console.log(ticketInfo);
+             const { subject, info, payment } = ticketInfo;
+             this.setState({
+                 subject,
+                 description: info,
+                 payment
+             })
+         })
+         .catch(err => {
+            console.log('err', err);
+         })
+      }
 
     toggleHidden () {
         this.setState({
@@ -64,36 +106,33 @@ class ViewTicketMaster extends Component {
                     </div>
                     
                     <TextField
-                        disabled
                         required
                         id="outlined-required"
                         label="Subject"
-                        defaultValue=""
                         className={classes.textField}
                         margin="none"
                         variant="outlined"
+                        value={this.state.subject}
                     />
                     <TextField
-                        disabled
                         id="outlined-multiline-static"
                         label="description..."
                         multiline
                         rows="9"
-                        defaultValue=""
                         className={classes.textField}
                         margin="normal"
                         variant="outlined"
+                        value={this.state.description}
                     />
                     <TextField
-                        disabled
                         id="outlined-multiline-static"
                         label="payment details..."
                         multiline
                         rows="5"
-                        defaultValue=""
                         className={classes.textField}
                         margin="normal"
                         variant="outlined"
+                        value={this.state.payment}
                     />
                     {this.state.isHidden &&
                     <Button onClick={this.toggleHidden.bind(this)} variant="contained" color="primary" className={classes.button}>

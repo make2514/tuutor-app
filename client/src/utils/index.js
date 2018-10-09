@@ -1,5 +1,5 @@
-export function goToPage(props, path) {
-    props.history.push(path);
+export function goToPage(props, path, queryParamStr = '') {
+    props.history.push(path + queryParamStr);
 }
 
 export function apiRequest(token) {
