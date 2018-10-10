@@ -8,6 +8,12 @@ module.exports = {
             .then(obj => { return obj });
     },
 
+    findByOwnerId(ownerId) {
+        return Ticket.find({ owner: ownerId })
+        .exec()
+        .then(arr => { return arr });
+    },
+
     findById(id) {
         return Ticket.findById(id)
             .populate({ path: 'owner', select: 'firstName lastName'})

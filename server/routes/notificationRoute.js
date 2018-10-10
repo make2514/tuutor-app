@@ -12,6 +12,12 @@ router.get('/', (req, res, next) => {
         });
 });
 
+router.get('/mytickets', (req, res, next) => {
+    console.log('req.userData', req.userData);
+    noteController.findByOwnerId(req.userData._id)
+    .then(obj => res.send(obj));
+});
+
 router.get('/:id', (req, res, next) => {
     noteController.findById(req.params.id)
         .then(doc => res.send(doc))

@@ -62,7 +62,7 @@ class TicketFeed extends Component {
 
     getTicketFeed() {
         console.log('...',localStorage.getItem('authToken'));
-        fetch('/notification', { 
+        fetch(this.props.fetchPath, { 
           method: 'get',
           headers: new Headers({
            'Authorization': localStorage.getItem('authToken')
