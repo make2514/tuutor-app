@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography/Typography";
 
 const styles = theme => ({
     chatFeed: {
+        marginTop: '56px',
         marginBottom: '36px'
     },
     message: {
