@@ -22,7 +22,8 @@ const contractSchema = new mongoose.Schema({
             ref: 'User'
         },
         time: Date,
-        content: String
+        content: String,
+        fullName: String
     }]
 });
 

@@ -1,4 +1,5 @@
 const ContractController = require('./controllers/contractController');
+const UserController = require('./controllers/userController');
 const verifyToken = require('./middleware/checkAuth').verifyToken;
 
 module.exports = (io) => {
@@ -9,6 +10,7 @@ module.exports = (io) => {
     io.on('connection', (client) => {
         let contractId = null;
         let userId = null;
+        let userFullName = null;
 
         client.on('subscribeToChat', (id, token) => {
             contractId = id;
@@ -17,7 +19,12 @@ module.exports = (io) => {
             ContractController.getMessages(contractId)
                 .then(messages => {
                     client.emit('chatHistory', messages);
-                });
+                    return UserController.findById(userId);
+                })
+                .then(user => {
+                    userFullName = `${user.firstName} ${user.lastName}`;
+                })
+                .catch(err => console.error(err));
         });
 
         client.on('message', (message) => {
@@ -25,7 +32,8 @@ module.exports = (io) => {
                 "contractId": contractId,
                 "message": {
                     "content": message,
-                    "userId": userId
+                    "userId": userId,
+                    "fullName": userFullName
                 }
             })
                 .then((response) => {

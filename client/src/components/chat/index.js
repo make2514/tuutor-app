@@ -20,8 +20,8 @@ const styles = theme => ({
         marginRight: '8px'
     },
     input: {
+        background: '#efefef',
         zIndex: 1,
-        background: '#fff',
         position: 'fixed',
         bottom: 0
     }
@@ -34,7 +34,8 @@ class Chat extends Component {
 
         this.state = {
             chatLog: null,
-            input: ""
+            input: null,
+            users: null,
         };
 
         subscribeToChat(this.props.chatId,(err, history) => {
@@ -70,7 +71,6 @@ class Chat extends Component {
                     fullWidth={true}
                     multiline={true}
                     rowsMax={2}
-                    variant="filled"
                     endAdornment={
                         <InputAdornment position="end">
                             <IconButton
@@ -95,9 +95,11 @@ class Chat extends Component {
                         <TextField
                             key={msg._id}
                             id={msg.userId}
-                            label={msg.userId}
+                            label={msg.fullName ? msg.fullName : msg.userId}
                             value={msg.content}
                             fullWidth={true}
+                            disabled={true}
+                            multiline={true}
                             margin="dense"
                             variant="outlined"
                         />
@@ -126,6 +128,7 @@ class Chat extends Component {
 
     handleKeyPress = (e, context) => {
         if (e.key === 'Enter') {
+            e.preventDefault();
             this.handleSubmit(e, context);
         }
     };
