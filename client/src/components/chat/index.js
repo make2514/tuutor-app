@@ -6,22 +6,24 @@ import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import IconButton from "@material-ui/core/IconButton/IconButton";
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import withStyles from "@material-ui/core/styles/withStyles";
-import TextField from "@material-ui/core/TextField/TextField";
+import Paper from "@material-ui/core/Paper/Paper";
+import Typography from "@material-ui/core/Typography/Typography";
 
 const styles = theme => ({
-    chat: {
+    chatFeed: {
+        marginTop: '56px',
+        marginBottom: '36px'
     },
-    header: {
-
+    message: {
+        margin: '4px',
+        padding: '4px 8px 4px 8px'
     },
-    messages: {
-        marginBottom: '36px',
-        marginLeft: '8px',
-        marginRight: '8px'
+    msgName: {
+        color: '#3F51B5'
     },
     input: {
+        background: '#efefef',
         zIndex: 1,
-        background: '#fff',
         position: 'fixed',
         bottom: 0
     }
@@ -34,7 +36,8 @@ class Chat extends Component {
 
         this.state = {
             chatLog: null,
-            input: ""
+            input: '',
+            users: null,
         };
 
         subscribeToChat(this.props.chatId,(err, history) => {
@@ -54,7 +57,7 @@ class Chat extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <div className={classes.chat}>
+            <div className={classes.chatFeed}>
                 <Header className={classes.header}/>
                 {this.renderChatMessages()}
                 <div style={{ float:"left", clear: "both" }}
@@ -70,7 +73,6 @@ class Chat extends Component {
                     fullWidth={true}
                     multiline={true}
                     rowsMax={2}
-                    variant="filled"
                     endAdornment={
                         <InputAdornment position="end">
                             <IconButton
@@ -90,17 +92,16 @@ class Chat extends Component {
 
         if (this.state.chatLog) {
             return(
-                <div className={classes.messages}>
+                <div>
                     {this.state.chatLog.map((msg) => (
-                        <TextField
-                            key={msg._id}
-                            id={msg.userId}
-                            label={msg.userId}
-                            value={msg.content}
-                            fullWidth={true}
-                            margin="dense"
-                            variant="outlined"
-                        />
+                        <Paper key={msg._id} className={classes.message} elevation={1}>
+                            <Typography className={classes.msgName} component="p">
+                                {msg.fullName}
+                            </Typography>
+                            <Typography component="p">
+                                {msg.content}
+                            </Typography>
+                        </Paper>
                     ))}
                 </div>
             )
@@ -126,6 +127,7 @@ class Chat extends Component {
 
     handleKeyPress = (e, context) => {
         if (e.key === 'Enter') {
+            e.preventDefault();
             this.handleSubmit(e, context);
         }
     };
