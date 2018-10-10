@@ -35,11 +35,13 @@ class Chat extends Component {
         super(props);
 
         this.state = {
-            chatLog: null,
+            chatLog: [],
             input: '',
             users: null,
         };
+    }
 
+    componentDidMount() {
         subscribeToChat(this.props.chatId,(err, history) => {
             this.setState({
                 chatLog: history.messages
@@ -90,7 +92,7 @@ class Chat extends Component {
     renderChatMessages() {
         const { classes } = this.props;
 
-        if (this.state.chatLog) {
+        if (this.state.chatLog.length > 0) {
             return(
                 <div>
                     {this.state.chatLog.map((msg) => (
@@ -133,7 +135,7 @@ class Chat extends Component {
     };
 
     scrollToBottom = () => {
-        this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+        if (this.messagesEnd) this.messagesEnd.scrollIntoView({ behavior: "smooth" });
     };
 
 }
