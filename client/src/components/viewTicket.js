@@ -198,7 +198,8 @@ class ViewTicketMaster extends Component {
         } else {
             this.createContract()
             .then(contract => {
-                goToPage(this.props, '/chat/' + contract.contract._id);
+                console.log('contract', contract);
+                goToPage(this.props, '/chat/' + contract._id);
             });
         }
     }
