@@ -48,19 +48,37 @@ module.exports = {
             .then(messages => { return messages })
     },
 
-    getMyContract(ticketId, userId) {
+    getCurrentTicketContract(ticketId, userId) {
         let contractOwnerId;
         return ticketController.findById(ticketId)
             .then(ticket => {
-                contractOwnerId = ticket.owner;
+                contractOwnerId = ticket.owner._id;
                 return Contract.find({
                     ticket: ticket._id
                 });
             })
-            .then(contract => {
-                if (contract.applicant === userId || contractOwnerId === userId) {
-                    return contract;
+            .then(contracts => {
+                console.log('found', contracts, contracts.applicant, typeof contractOwnerId, userId);
+                const currentTicketApplicantContract = contracts.filter(function(contract) {
+                    return contract.applicant.toString() === userId;
+                });
+                const isCurrentUserTicketOwner = contractOwnerId.toString() === userId;
+
+                if (currentTicketApplicantContract.length > 0) {
+                    return {
+                        isUserTicketOwner: false,
+                        contract: currentTicketApplicantContract[0]
+                    }
                 }
+                if (isCurrentUserTicketOwner) {
+                    return {
+                        isUserTicketOwner: true,
+                        contract: contracts[0]
+                    }
+                }
+                // if (contract.applicant === userId || contractOwnerId === userId) {
+                //     return contract;
+                // }
                 throw 'No contract found'
             })
     }

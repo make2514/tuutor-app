@@ -22,6 +22,7 @@ router.get('/:id', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
+    console.log(req.body);
     contractController.create(req.body)
         .then(created => res.send(created))
         .catch(err => {
@@ -59,7 +60,7 @@ router.post('/message', (req, res, next) => {
 
 router.get('/mycontract/:ticketId', (req, res, next) => {
     console.log(req, res);
-    contractController.getMyContract(req.params.ticketId, req.userData._id)
+    contractController.getCurrentTicketContract(req.params.ticketId, req.userData._id)
         .then(contract => res.send(contract))
         .catch(err => {
             console.error(err);

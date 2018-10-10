@@ -23,6 +23,7 @@ const styles = theme => ({
     },
     button: {
         marginTop: 16,
+        marginRight: 10,
         maxWidth: 100,
         margin: 'auto'
     },
@@ -87,10 +88,20 @@ class ViewTicketMaster extends Component {
          })
       }
 
-    toggleHidden () {
+    handleApplyTicket () {
+        console.log(new Date().getTime());
         this.setState({
             isHidden: !this.state.isHidden
         })
+    }
+
+    handleChat() {
+        // goto '/chat/:chatId'
+        /*
+        1. Get chat (contractId)
+        - 
+        */
+        // goToPage(this.props, '/signin');
     }
 
     render() {
@@ -135,11 +146,15 @@ class ViewTicketMaster extends Component {
                         value={this.state.payment}
                     />
                     {this.state.isHidden &&
-                    <Button onClick={this.toggleHidden.bind(this)} variant="contained" color="primary" className={classes.button}>
-                        Apply
-                    </Button>}
+                    <div>
+                        <Button onClick={this.handleApplyTicket.bind(this)} variant="contained" color="primary" className={classes.button}>
+                            Apply
+                        </Button>
+                        <Button onClick={this.handleChat.bind(this)} variant="contained" color="primary" className={classes.button}>
+                            Chat
+                        </Button>
+                    </div>}
                     {!this.state.isHidden && <Contract />}
-
                 </form>
             </div>
         );

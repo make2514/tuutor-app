@@ -10,7 +10,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import TextField from '@material-ui/core/TextField';
 import Header from './header/header';
 import Button from '@material-ui/core/Button';
-import { goToPage } from '../utils';
+import { goToPage, getCurrentUserInfo } from '../utils';
 
 const styles = theme => ({
     container: {
@@ -59,33 +59,38 @@ class TicketMaster extends Component {
             payment,
             tutor,
         } = context.state;
-
-        return fetch('/notification', {
-            method: 'post',
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'authorization': localStorage.getItem("authToken")
-            }),
-            body: JSON.stringify( {
-                subject,
-                info,
-                payment,
-                tutor,
+        return getCurrentUserInfo()
+        .then(userInfo => {
+            console.log('userInfo', userInfo._id);
+            return fetch('/notification', {
+                method: 'post',
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'authorization': localStorage.getItem("authToken")
+                }),
+                body: JSON.stringify( {
+                    subject,
+                    info,
+                    payment,
+                    tutor,
+                    owner: userInfo._id
+                })
             })
+            .then(function(res) {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    goToPage(this.props, '/signin');
+                }
+            })
+            .then(ticket => {
+                goToPage(this.props, '/viewTicket?ticket=', ticket._id);
+            })
+             .catch(err => {
+                console.log('err', err);
+             });
         })
-        .then(function(res) {
-            if (res.ok) {
-                return res.json();
-            } else {
-                goToPage(this.props, '/signin');
-            }
-        })
-        .then(ticket => {
-            goToPage(this.props, '/viewTicket?ticket=', ticket._id);
-        })
-         .catch(err => {
-            console.log('err', err);
-         });
+        
     }
 
     render() {
