@@ -34,7 +34,7 @@ class Chat extends Component {
 
         this.state = {
             chatLog: null,
-            input: null
+            input: ""
         };
 
         subscribeToChat(this.props.chatId,(err, history) => {

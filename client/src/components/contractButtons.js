@@ -44,12 +44,7 @@ class ContractButtons extends Component {
             <div className={classes.container}>
                 <MuiThemeProvider theme={greenTheme}>
                     <Button variant="raised" color="primary" className={classes.button}>
-                        Accept
-                    </Button>
-                </MuiThemeProvider>
-                <MuiThemeProvider theme={redTheme}>
-                    <Button variant="contained" color="primary" className={classes.button}>
-                        Deny
+                        Pending
                     </Button>
                 </MuiThemeProvider>
             </div>

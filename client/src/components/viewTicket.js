@@ -5,6 +5,11 @@ import TextField from '@material-ui/core/TextField';
 import Header from './header/header';
 import Button from '@material-ui/core/Button';
 import Contract from './contractButtons';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Avatar from '@material-ui/core/Avatar';
+import ImageIcon from '@material-ui/icons/Image';
 import { goToPage } from '../utils';
 
 const styles = theme => ({
@@ -35,8 +40,11 @@ const styles = theme => ({
         maxWidth: 100,
         margin: 'auto',
         display:'block',
+    },
+    pendingButton: {
+        marginRight: 10,
+        display:'inline-block',
     }
-
 });
 
 class ViewTicketMaster extends Component {
@@ -47,12 +55,31 @@ class ViewTicketMaster extends Component {
             subject: '',
             description: '',
             payment: '',
-            status: ''
+            status: '',
+            contract: {
+                isUserTicketOwner: undefined,
+                contract: {
+                }
+            }
         };
     }
 
     componentDidMount() {
+        // getCurrentTicket contract
+        // If their is now contract, create one when user clicks on chat or clicks "apply"
+        this.getProfile();
         this.getTicketInfo();
+    }
+
+    getProfile() {
+        fetch('/users/currentUser', {
+            method: 'get',
+            headers: new Headers({
+                'Authorization': localStorage.getItem('authToken')
+            })
+        })
+        .then(res => res.json())
+        .then(profile => this.setState({profile}))
     }
 
     getTicketInfo() {
@@ -86,13 +113,74 @@ class ViewTicketMaster extends Component {
          .catch(err => {
             console.log('err', err);
          })
+
+         fetch('/contract/mycontract/' + ticketId, { 
+            method: 'get',
+            headers: new Headers({
+             'Authorization': localStorage.getItem('authToken')
+            })
+           })
+           .then(res => {
+               console.log('...', res);
+              if (res.ok) {
+                  return res.json();
+              } else {
+                  console.log(res);
+                  return {
+                    isUserTicketOwner: undefined,
+                    contract: {}
+                  }
+              }
+           })
+           .then(contract => {
+               console.log('mycontract', contract);
+               this.setState({contract});
+           })
+           .catch(err => {
+              console.log('err', err);
+           })
       }
 
+    createContract () {
+        let urlParams = new URLSearchParams(window.location.search);
+        let ticketId = urlParams.get('ticket');
+        // console.log('create contract', JSON.stringify( {
+        //     created: new Date().getTime(),
+        //     terms: "default",
+        //     payment: "default",
+        //     ticket: ticketId,
+        //     applicant: this.state.profile._id
+        // }));
+        return fetch('/contract/', { 
+            method: 'post',
+            headers: new Headers({
+             'Authorization': localStorage.getItem('authToken'),
+             'Content-Type': 'application/json'
+            }),
+            body:  JSON.stringify({
+                created: new Date().getTime(),
+                terms: "default",
+                payment: "default",
+                ticket: ticketId,
+                applicant: this.state.profile._id
+            })
+        })
+        .then(res => {
+            console.log('...', res);
+            if (res.ok) {
+                return res.json();
+            }
+        })
+    }
+
     handleApplyTicket () {
-        console.log(new Date().getTime());
+        // TODO: add a check to make sure that after click apply, and subsequent clicking on chat
+        // does not create a new contract
+        // console.log(new Date().getTime());
         this.setState({
             isHidden: !this.state.isHidden
         })
+        // this.createContract();
     }
 
     handleChat() {
@@ -102,20 +190,45 @@ class ViewTicketMaster extends Component {
         - 
         */
         // goToPage(this.props, '/signin');
+        console.log(this.state.contract);
+        const { contract } = this.state;
+        if (contract.isUserTicketOwner !== undefined) {
+            console.log(contract.contract._id);
+            goToPage(this.props, '/chat/' + contract.contract._id);
+        } else {
+            this.createContract()
+            .then(contract => {
+                goToPage(this.props, '/chat/' + contract.contract._id);
+            });
+        }
     }
 
     render() {
         const { classes } = this.props;
-
+        // TODO: fill the student list with real data
+        const studentList = [{name: 'Tom'}, {name: 'Alicia'}, {name: 'Markus'}].map((student, index) => (
+            <ListItem key={index}>
+                <Avatar>
+                    <ImageIcon />
+                </Avatar>
+                <ListItemText primary={student.name} secondary={
+                    <Button onClick={this.handleChat.bind(this)} variant="contained" color="primary" className={classes.button}>
+                        Chat
+                    </Button>
+                } />
+            </ListItem>
+        ));
         return (
             <div>
                 <Header />
 
                 <form className={classes.container} noValidate autoComplete="off">
                     <div className={classes.createdBy} component="p">
-                        Created By: Rick Harrison
+                        {/* TODO: Add logic here to get user info */}
+                        {this.state.contract.isUserTicketOwner === undefined ? null :
+                        this.state.contract.isUserTicketOwner === true ? null :
+                        null }
                     </div>
-                    
                     <TextField
                         required
                         id="outlined-required"
@@ -147,14 +260,34 @@ class ViewTicketMaster extends Component {
                     />
                     {this.state.isHidden &&
                     <div>
-                        <Button onClick={this.handleApplyTicket.bind(this)} variant="contained" color="primary" className={classes.button}>
-                            Apply
-                        </Button>
-                        <Button onClick={this.handleChat.bind(this)} variant="contained" color="primary" className={classes.button}>
-                            Chat
-                        </Button>
+                        {
+                            !this.state.contract.isUserTicketOwner ?
+                            <div>
+                                <Button onClick={this.handleApplyTicket.bind(this)} variant="contained" color="primary" className={classes.button}>
+                                    Apply
+                                </Button>
+                                <Button onClick={this.handleChat.bind(this)} variant="contained" color="primary" className={classes.button}>
+                                    Chat
+                                </Button>
+                            </div>: null
+                        }
+                        {
+                            this.state.contract.isUserTicketOwner === true ?
+                            <List>
+                                Student List
+                                {studentList}
+                            </List> : null
+                        }
                     </div>}
-                    {!this.state.isHidden && <Contract />}
+                    {!this.state.isHidden && 
+                        <div>
+                            <Button variant="raised" color="primary" className={classes.button}>
+                                Pending
+                            </Button>
+                            <Button onClick={this.handleChat.bind(this)} variant="contained" color="primary" className={classes.button}>
+                                Chat
+                            </Button>
+                    </div>}
                 </form>
             </div>
         );

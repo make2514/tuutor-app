@@ -22,7 +22,7 @@ router.get('/:id', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-    console.log(req.body);
+    console.log('req.body', req.body);
     contractController.create(req.body)
         .then(created => res.send(created))
         .catch(err => {
