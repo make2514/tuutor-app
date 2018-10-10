@@ -6,18 +6,19 @@ import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import IconButton from "@material-ui/core/IconButton/IconButton";
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import withStyles from "@material-ui/core/styles/withStyles";
-import TextField from "@material-ui/core/TextField/TextField";
+import Paper from "@material-ui/core/Paper/Paper";
+import Typography from "@material-ui/core/Typography/Typography";
 
 const styles = theme => ({
-    chat: {
+    chatFeed: {
+        marginBottom: '36px'
     },
-    header: {
-
+    message: {
+        margin: '4px',
+        padding: '4px 8px 4px 8px'
     },
-    messages: {
-        marginBottom: '36px',
-        marginLeft: '8px',
-        marginRight: '8px'
+    msgName: {
+        color: '#3F51B5'
     },
     input: {
         background: '#efefef',
@@ -34,7 +35,7 @@ class Chat extends Component {
 
         this.state = {
             chatLog: null,
-            input: null,
+            input: '',
             users: null,
         };
 
@@ -55,7 +56,7 @@ class Chat extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <div className={classes.chat}>
+            <div className={classes.chatFeed}>
                 <Header className={classes.header}/>
                 {this.renderChatMessages()}
                 <div style={{ float:"left", clear: "both" }}
@@ -90,19 +91,16 @@ class Chat extends Component {
 
         if (this.state.chatLog) {
             return(
-                <div className={classes.messages}>
+                <div>
                     {this.state.chatLog.map((msg) => (
-                        <TextField
-                            key={msg._id}
-                            id={msg.userId}
-                            label={msg.fullName ? msg.fullName : msg.userId}
-                            value={msg.content}
-                            fullWidth={true}
-                            disabled={true}
-                            multiline={true}
-                            margin="dense"
-                            variant="outlined"
-                        />
+                        <Paper key={msg._id} className={classes.message} elevation={1}>
+                            <Typography className={classes.msgName} component="p">
+                                {msg.fullName}
+                            </Typography>
+                            <Typography component="p">
+                                {msg.content}
+                            </Typography>
+                        </Paper>
                     ))}
                 </div>
             )
