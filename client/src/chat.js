@@ -19,8 +19,8 @@ function sendMessage(message, cb) {
     socket.emit('message', message);
 }
 
-function recieveMessage(cb) {
+function receiveMessage(cb) {
     socket.on('message', messageWrap => cb(null, messageWrap));
 }
 
-export { subscribeToChat, sendMessage, recieveMessage };
+export { subscribeToChat, sendMessage, receiveMessage };
